@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace WaferProject.SERVER
             /* 요청 & 응답 */
             string _type = Convert.ToString(buff[0], 16);
             /* 메시지 길이 */
-            int data_len = (buff[4] << 24) + (buff[3] << 16) + (buff[2] << 8) + (buff[1]);
+            int data_len = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, 1));
             /* 메시지 내용 */
             byte[] json_buff = new byte[data_len];
 

@@ -58,8 +58,9 @@ namespace WaferProject.SERVER
                     string data = p.parsing();
                     // data를 바이트형태로 변환
                     byte[] json_data = Encoding.UTF8.GetBytes(data);
-                    // data 길이를 바이트형태로 저장
-                    byte[] length_data = BitConverter.GetBytes(json_data.Length);
+                    /* data 길이를 바이트형태로 저장
+                    ★ 빅 엔디안 // 리틀 엔디안 자동 변환 ★ */
+                    byte[] length_data = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(json_data.Length));
 
                     byte[] buff_recv = new byte[type_data.Length + length_data.Length + json_data.Length];
 
