@@ -17,11 +17,19 @@ namespace WaferProject.SERVER
     class Parser
     {
         byte[] buff;
-        public event prt prt_Log;
-        public Parser(byte[] buff, prt prt_Log)
+        MainForm mf;
+        public Parser(byte[] buff, MainForm mf)
         {
             this.buff = buff;
-            this.prt_Log = prt_Log;
+            this.mf = mf;
+        }
+        public delegate void MsgEvent(string strMsg);
+        private void Parse_MsgRun(string strMsg)
+        {
+            if (mf.InvokeRequired)
+            {
+                mf.Invoke(new MsgEvent(mf.Log), new object[] { strMsg });
+            }
         }
         public string parsing()
         {
@@ -34,7 +42,7 @@ namespace WaferProject.SERVER
             byte[] json_buff = new byte[data_len];
 
 
-            DataDisp data_disp = new DataDisp(prt_Log);
+            DataDisp data_disp = new DataDisp(mf);
 
             /* 라즈베리파이 -> 서버 */
             if (_type.Equals("40")) // request
@@ -46,7 +54,7 @@ namespace WaferProject.SERVER
 
                 JObject json_data = JObject.Parse(data);
 
-                prt_Log(json_data.ToString());
+                Parse_MsgRun(json_data.ToString());
 
                 return data_disp.RaspDataDisp(json_data);
             }
@@ -60,12 +68,14 @@ namespace WaferProject.SERVER
 
                 JObject json_data = JObject.Parse(data);
 
+                Parse_MsgRun(json_data.ToString());
+
                 return data_disp.ClientDataDisp(json_data);
             }
             /* 에러 처리 */
             else
             {
-                prt_Log("message type error.");
+                Parse_MsgRun("message type error.");
             }
 
             return null;

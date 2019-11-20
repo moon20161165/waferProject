@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 
 namespace WaferProject.SERVER
 {
-    public delegate void prt(string msg);
-
     class ServerAccept
     {
         TcpClient tc;
-        NetworkStream stream;
-
-        public event prt prt_Log;
-
-        public ServerAccept(TcpClient tc, NetworkStream stream)
+        MainForm mf;
+        public ServerAccept(TcpClient tc, MainForm mf)
         {
             this.tc = tc;
-            this.stream = stream;
+            this.mf = mf;
+        }
+        public delegate void MsgEvent(string strMsg);
+        private void Accept_MsgRun(string strMsg)
+        {
+            if (mf.InvokeRequired)
+            {
+                mf.Invoke(new MsgEvent(mf.Log), new object[] { strMsg });
+            }
         }
         public void Accept()
         {
@@ -36,8 +39,9 @@ namespace WaferProject.SERVER
 
             try
             {
+                NetworkStream stream = tc.GetStream();
                 //Console.ForegroundColor = ConsoleColor.DarkGreen;
-                prt_Log(ip + " ::: " + "CLIENT START");
+                Accept_MsgRun(ip + " ::: " + "CLIENT START");
                 //Console.ForegroundColor = ConsoleColor.White;
                 // 클라이언트에서 받은 메시지 크기를 설정한다.
                 int nbytes;
@@ -51,7 +55,7 @@ namespace WaferProject.SERVER
                 //if (buff.Length > 5 || nbytes != 0)
                 if (buff.Length > 5)
                 {
-                    Parser p = new Parser(buff, prt_Log);
+                    Parser p = new Parser(buff, mf);
 
                     byte[] type_data = new byte[1] { 0x80 };
                     // data  
@@ -71,23 +75,23 @@ namespace WaferProject.SERVER
                     //IPAddress.NetworkToHostOrder();
                     //IPAddress.HostToNetworkOrder();
 
-                    prt_Log("보낼 데이터 : " + data);
+                    Accept_MsgRun("보낼데이터: " + data);
 
                     // Echo 이기 때문에 다시 데이터를 클라이언트로 보내줌.
                     stream.Write(buff_recv, 0, buff_recv.Length);
                 }
-                else prt_Log("data format error , time out");
+                else Accept_MsgRun("data format error , time out");
 
             }
             catch (Exception e)
             {
-                prt_Log("Accept error!! : " + e.ToString());
+                Accept_MsgRun("Accept error!! : " + e.ToString());
             }
             finally
             {
                 //Console.WriteLine();
                 //Console.ForegroundColor = ConsoleColor.DarkGreen;
-                prt_Log(ip + " ::: " + "CLIENT END");
+                Accept_MsgRun(ip + " ::: " + "CLIENT END");
                 //Console.ForegroundColor = ConsoleColor.White;
                 //Console.WriteLine();
                 //stream.Close();

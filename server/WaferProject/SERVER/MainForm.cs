@@ -21,12 +21,16 @@ namespace WaferProject.SERVER
             InitializeComponent();
             
         }
+        public delegate void MsgEvent(string strMsg);
+        private void main_MsgRun(string strMsg)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MsgEvent(this.Log), new object[] { strMsg });
+            }
+        }
         public void Log(string msg)
         {
-            //this.listBox1.Items.Add("[" + DateTime.Now.ToString() +  "] " + msg);
-            //this.listBox1.SelectedIndex = this.listBox1.Items.Count - 1;
-            //this.listBox1.SelectedIndex = -1;
-
             this.richTextBox1.AppendText("[" + DateTime.Now.ToString() + "]    " + msg +"\n");
             this.richTextBox1.ScrollToCaret();
         }
@@ -47,15 +51,13 @@ namespace WaferProject.SERVER
                 listener.Start();
 
                 Thread.Sleep(1000);
-                Log("서버 : " + STR_IP + ":" + PORT.ToString());
-                Log("서버가 연결되었습니다.");
+                main_MsgRun("서버: " + STR_IP + ":" + PORT.ToString());
+                main_MsgRun("서버가연결되었습니다.");
                 while (true)
                 {
                     TcpClient tc = listener.AcceptTcpClient();
-                    NetworkStream stream = tc.GetStream();
-
-                    ServerAccept sa = new ServerAccept(tc, stream);
-                    sa.prt_Log += new prt(Log);
+                    
+                    ServerAccept sa = new ServerAccept(tc, this);
                     Thread t1 = new Thread(new ThreadStart(sa.Accept));
                     t1.IsBackground = true;
                     t1.Start();
@@ -64,7 +66,7 @@ namespace WaferProject.SERVER
             catch (SocketException e)
             {
                 //Console.ForegroundColor = ConsoleColor.Red;
-                Log("Main Error : " + e.ToString());
+                main_MsgRun("Main Error : " + e.ToString());
             }
         }
 

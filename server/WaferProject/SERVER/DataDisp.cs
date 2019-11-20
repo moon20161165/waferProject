@@ -11,9 +11,18 @@ namespace WaferProject.SERVER
 {
     class DataDisp
     {
-        public event prt prt_Log;
-        public DataDisp(prt prt_Log) {
-            this.prt_Log = prt_Log;
+        MainForm mf;
+        public DataDisp(MainForm mf)
+        {
+            this.mf = mf;
+        }
+        public delegate void MsgEvent(string strMsg);
+        private void Data_MsgRun(string strMsg)
+        {
+            if (mf.InvokeRequired)
+            {
+                mf.Invoke(new MsgEvent(mf.Log), new object[] { strMsg });
+            }
         }
 
         /*  <<클라이언트 -> 서버>>  요청 및 응답 처리  */
@@ -28,7 +37,7 @@ namespace WaferProject.SERVER
                     string userId = json_data["login"]["id"].ToString();
                     string userPw = json_data["login"]["pw"].ToString();
 
-                    prt_Log(userId + " " + userPw);
+                    Data_MsgRun(userId + " " + userPw);
 
                     var json = new JObject();
 
@@ -36,12 +45,12 @@ namespace WaferProject.SERVER
                     UserInfo ui = db.login_check(userId, userPw);
                     if (!ui.getUser_name().Equals(""))
                     {
-                        prt_Log("로그인 성공");
+                        Data_MsgRun("로그인 성공");
                         json.Add("login_name", ui.getUser_name());
                     }
                     else
                     {
-                        prt_Log("로그인 실패");
+                        Data_MsgRun("로그인 실패");
                         json.Add("login_name", "null");
                     }
 
@@ -59,12 +68,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.password_update(id, pw))
                     {
-                        prt_Log("패스워드 변경 성공");
+                        Data_MsgRun("패스워드 변경 성공");
                         json.Add("pw_update", "1");
                     }
                     else
                     {
-                        prt_Log("패스워드 변경 실패");
+                        Data_MsgRun("패스워드 변경 실패");
                         json.Add("pw_update", "0");
                     }
 
@@ -83,12 +92,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.sign_up(name, id, position, right))
                     {
-                        prt_Log("회원가입 성공");
+                        Data_MsgRun("회원가입 성공");
                         json.Add("regis_status", "1");
                     }
                     else
                     {
-                        prt_Log("회원가입 실패");
+                        Data_MsgRun("회원가입 실패");
                         json.Add("regis_status", "0");
                     }
 
@@ -119,7 +128,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("users", jsonArray);
 
-                    prt_Log("전체 사용자 정보 응답");
+                    Data_MsgRun("전체 사용자 정보 응답");
 
                     return jsonData.ToString();
 
@@ -134,12 +143,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.user_delete(id))
                     {
-                        prt_Log("사용자 삭제 성공");
+                        Data_MsgRun("사용자 삭제 성공");
                         json.Add("users_del_state", "1");
                     }
                     else
                     {
-                        prt_Log("사용자 삭제 실패");
+                        Data_MsgRun("사용자 삭제 실패");
                         json.Add("users_del_state", "0");
                     }
 
@@ -162,7 +171,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("equips_oper_id", jsonArray);
 
-                    prt_Log("장비 이름 정보 응답");
+                    Data_MsgRun("장비 이름 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -180,12 +189,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.equip_insert(equipId, equipType, equipComm, equipManager, operId))
                     {
-                        prt_Log("장비 등록 성공");
+                        Data_MsgRun("장비 등록 성공");
                         json.Add("equip_add_status", "1");
                     }
                     else
                     {
-                        prt_Log("장비 등록 실패");
+                        Data_MsgRun("장비 등록 실패");
                         json.Add("equip_add_status", "0");
                     }
                     return json.ToString();
@@ -218,7 +227,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("oper_equip", jsonArray);
 
-                    prt_Log("공정 아이디로 장비 정보 응답");
+                    Data_MsgRun("공정 아이디로 장비 정보 응답");
 
                     return jsonData.ToString();
 
@@ -248,7 +257,7 @@ namespace WaferProject.SERVER
                     }
                     jsonData.Add("equip_event_view", jsonArray);
 
-                    prt_Log("장비 아이디로 장비 정보 응답");
+                    Data_MsgRun("장비 아이디로 장비 정보 응답");
 
                     return jsonData.ToString();
 
@@ -269,7 +278,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("code_types", jsonArray);
 
-                    prt_Log("코드 타입 정보 응답");
+                    Data_MsgRun("코드 타입 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -308,7 +317,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("code_view", json);
 
-                    prt_Log("코드 아이디로 해당 코드 상세 조회 응답");
+                    Data_MsgRun("코드 아이디로 해당 코드 상세 조회 응답");
 
                     return jsonData.ToString();
                 }
@@ -351,7 +360,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("code_att", json2);
 
-                    prt_Log("코드 종류에 따른 코드 아이디 정보 응답");
+                    Data_MsgRun("코드 종류에 따른 코드 아이디 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -367,12 +376,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.code_insert(code_id, code_type, code_comm))
                     {
-                        prt_Log("코드 정보 추가 성공");
+                        Data_MsgRun("코드 정보 추가 성공");
                         json.Add("code_add_status", "1");
                     }
                     else
                     {
-                        prt_Log("코드 정보 추가 실패");
+                        Data_MsgRun("코드 정보 추가 실패");
                         json.Add("code_add_status", "0");
                     }
                     return json.ToString();
@@ -400,12 +409,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.code_update(ci))
                     {
-                        prt_Log("코드 정보 수정 성공");
+                        Data_MsgRun("코드 정보 수정 성공");
                         json.Add("code_update_status", "1");
                     }
                     else
                     {
-                        prt_Log("코드 정보 수정 실패");
+                        Data_MsgRun("코드 정보 수정 실패");
                         json.Add("code_update_status", "0");
                     }
                     return json.ToString();
@@ -414,19 +423,19 @@ namespace WaferProject.SERVER
                 else if (item.Key.Equals("code_del_id"))
                 {
                     string id = json_data["code_del_id"].ToString();
-                    prt_Log(id);
+                    Data_MsgRun(id);
 
                     var json = new JObject();
 
                     Database db = new Database();
                     if (db.code_delete(id))
                     {
-                        prt_Log("코드 정보 삭제 성공");
+                        Data_MsgRun("코드 정보 삭제 성공");
                         json.Add("code_del_status", "1");
                     }
                     else
                     {
-                        prt_Log("코드 정보 삭제 실패");
+                        Data_MsgRun("코드 정보 삭제 실패");
                         json.Add("code_del_status", "0");
                     }
 
@@ -465,7 +474,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("wafer", jsonArray);
 
-                    prt_Log("웨이퍼 전체 정보 응답");
+                    Data_MsgRun("웨이퍼 전체 정보 응답");
 
                     return jsonData.ToString();
 
@@ -475,7 +484,7 @@ namespace WaferProject.SERVER
                 {
                     string wafer_faulty_id = json_data["wafer_faulty_id"].ToString();
 
-                    prt_Log("테스트 중  : " + wafer_faulty_id);
+                    Data_MsgRun("테스트 중  : " + wafer_faulty_id);
 
                     Database db = new Database();
                     List<FaultyInfo> fi = new List<FaultyInfo>();
@@ -496,7 +505,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("wafer_faulty", jsonArray);
 
-                    prt_Log("웨이퍼 불량 정보 응답");
+                    Data_MsgRun("웨이퍼 불량 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -525,7 +534,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("route_view", jsonArray);
 
-                    prt_Log("MSCODE 루트 정보 응답");
+                    Data_MsgRun("MSCODE 루트 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -543,12 +552,12 @@ namespace WaferProject.SERVER
                     if (db.wafer_insert(mscode, qty, wafer_comm, wafer_maker))
                     {
                         db.start_stop_event("wafer", "START", "1");
-                        prt_Log("웨이퍼 생성 성공");
+                        Data_MsgRun("웨이퍼 생성 성공");
                         json.Add("wafer_add_status", "1");
                     }
                     else
                     {
-                        prt_Log("웨이퍼 생성 실패");
+                        Data_MsgRun("웨이퍼 생성 실패");
                         json.Add("wafer_add_status", "0");
                     }
                     return json.ToString();
@@ -587,7 +596,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("wafer_data", jsonArray);
 
-                    prt_Log("웨이퍼 측정 정보 응답");
+                    Data_MsgRun("웨이퍼 측정 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -626,7 +635,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("wafer_select_data", jsonArray);
 
-                    prt_Log("웨이퍼 아이디로 측정 정보 응답");
+                    Data_MsgRun("웨이퍼 아이디로 측정 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -665,7 +674,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("wafer_select", jsonArray);
 
-                    prt_Log("공정 아이디로 웨이퍼 정보 응답");
+                    Data_MsgRun("공정 아이디로 웨이퍼 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -696,7 +705,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("mscode", jsonArray);
 
-                    prt_Log("MSCODE 전체 정보 응답");
+                    Data_MsgRun("MSCODE 전체 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -716,12 +725,12 @@ namespace WaferProject.SERVER
                     Database db = new Database();
                     if (db.mscode_insert(mi))
                     {
-                        prt_Log("MSCODE 정보 추가 성공");
+                        Data_MsgRun("MSCODE 정보 추가 성공");
                         json.Add("mscode_add_status", "1");
                     }
                     else
                     {
-                        prt_Log("MSCODE 정보 추가 실패");
+                        Data_MsgRun("MSCODE 정보 추가 실패");
                         json.Add("mscode_add_status", "0");
                     }
                     return json.ToString();
@@ -730,19 +739,19 @@ namespace WaferProject.SERVER
                 else if (item.Key.Equals("mscode_del"))
                 {
                     string id = json_data["mscode_del"].ToString();
-                    prt_Log(id);
+                    Data_MsgRun(id);
 
                     var json = new JObject();
 
                     Database db = new Database();
                     if (db.mscode_delete(id))
                     {
-                        prt_Log("MSCODE 정보 삭제 성공");
+                        Data_MsgRun("MSCODE 정보 삭제 성공");
                         json.Add("mscode_del_status", "1");
                     }
                     else
                     {
-                        prt_Log("MSCODE 정보 삭제 실패");
+                        Data_MsgRun("MSCODE 정보 삭제 실패");
                         json.Add("mscode_del_status", "0");
                     }
 
@@ -773,7 +782,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("route", jsonArray);
 
-                    prt_Log("경로ID에 따른 정보 응답");
+                    Data_MsgRun("경로ID에 따른 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -796,7 +805,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("route", jsonArray);
 
-                    prt_Log("경로ID에 따른 정보 응답2 (DATABASE JOIN)");
+                    Data_MsgRun("경로ID에 따른 정보 응답2 (DATABASE JOIN)");
 
                     return jsonData.ToString();
                 }
@@ -817,7 +826,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("route_id", jsonArray);
 
-                    prt_Log("전체 경로ID 응답");
+                    Data_MsgRun("전체 경로ID 응답");
 
                     return jsonData.ToString();
                 }
@@ -837,17 +846,17 @@ namespace WaferProject.SERVER
                         next_route = jo["next_route"].ToString();
 
 
-                        prt_Log(route_id + " " + curr_route + " " + next_route);
+                        Data_MsgRun(route_id + " " + curr_route + " " + next_route);
                         if (!db.route_insert(route_id, curr_route, next_route))
                         {
-                            prt_Log("경로 추가 실패");
+                            Data_MsgRun("경로 추가 실패");
                             json.Add("route_add_status", "0");
 
                             return json.ToString();
                         }
                     }
 
-                    prt_Log("경로 추가 성공");
+                    Data_MsgRun("경로 추가 성공");
                     json.Add("route_add_status", "1");
 
                     return json.ToString();
@@ -856,19 +865,19 @@ namespace WaferProject.SERVER
                 else if (item.Key.Equals("route_del"))
                 {
                     string id = json_data["route_del"].ToString();
-                    prt_Log(id);
+                    Data_MsgRun(id);
 
                     var json = new JObject();
 
                     Database db = new Database();
                     if (db.route_delete(id))
                     {
-                        prt_Log("ROUTE 정보 삭제 성공");
+                        Data_MsgRun("ROUTE 정보 삭제 성공");
                         json.Add("route_del_status", "1");
                     }
                     else
                     {
-                        prt_Log("ROUTE 정보 삭제 실패");
+                        Data_MsgRun("ROUTE 정보 삭제 실패");
                         json.Add("route_del_status", "0");
                     }
 
@@ -902,7 +911,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("ingot_manage", jsonArray);
 
-                    prt_Log("잉곳 전체 정보 응답");
+                    Data_MsgRun("잉곳 전체 정보 응답");
 
                     return jsonData.ToString();
                 }
@@ -933,7 +942,7 @@ namespace WaferProject.SERVER
 
                     jsonData.Add("ingot_data", jsonArray);
 
-                    prt_Log("잉곳아이디로 잉곳에 대한 정보 응답");
+                    Data_MsgRun("잉곳아이디로 잉곳에 대한 정보 응답");
 
                     return jsonData.ToString();
 
@@ -963,7 +972,7 @@ namespace WaferProject.SERVER
                     if (db.ingot_create_insert(ingot_maker))
                     {
                         db.start_stop_event("ingot", "START", "1");
-                        prt_Log("잉곳 생산 성공");
+                        Data_MsgRun("잉곳 생산 성공");
                         json.Add("ingot_create_status", "1");
                         /* 잉곳 시작 플래그를 1로 바꿔줌 */
                         IngotFlagInfo.ingotFlag = "1";
@@ -971,7 +980,7 @@ namespace WaferProject.SERVER
                     }
                     else
                     {
-                        prt_Log("잉곳 생산 실패");
+                        Data_MsgRun("잉곳 생산 실패");
                         json.Add("ingot_create_status", "0");
                     }
                     return json.ToString();
@@ -1017,7 +1026,7 @@ namespace WaferProject.SERVER
 
                         jsonData.Add("wafer_data_oper", jsonArray);
 
-                        prt_Log("공정아이디로 웨이퍼 정보 응답");
+                        Data_MsgRun("공정아이디로 웨이퍼 정보 응답");
 
                         return jsonData.ToString();
                     }
@@ -1047,7 +1056,7 @@ namespace WaferProject.SERVER
 
                         jsonData.Add("ingot_data_oper", jsonArray);
 
-                        prt_Log("공정아이디로 잉곳 정보 응답");
+                        Data_MsgRun("공정아이디로 잉곳 정보 응답");
 
                         return jsonData.ToString();
                     }
@@ -1120,9 +1129,9 @@ namespace WaferProject.SERVER
                         db.ingot_finish();
                         db.block_id_insert(db.find_block_ingot());
                         IngotFlagInfo.ingotFlag = "0";
-                        prt_Log("잉곳 생산 완료 !");
+                        Data_MsgRun("잉곳 생산 완료 !");
                     }
-                    prt_Log("PI >> 잉곳 데이터");
+                    Data_MsgRun("PI >> 잉곳 데이터");
 
                     return json.ToString();
                 }
@@ -1144,7 +1153,7 @@ namespace WaferProject.SERVER
                     string degree = json_data["height_chk"]["degree"].ToString();   //평탄도
 
                     //wafer_data 삽입
-                    prt_Log("PI >> 웨이퍼 검사 데이터");
+                    Data_MsgRun("PI >> 웨이퍼 검사 데이터");
 
                     var json = new JObject();
                     Database db = new Database();
@@ -1153,12 +1162,12 @@ namespace WaferProject.SERVER
                     if (db.height_data_insert(degree))
                     {
                         json.Add("height_chk_status", "1");
-                        prt_Log("높이 검사 데이터 삽입 성공");
+                        Data_MsgRun("높이 검사 데이터 삽입 성공");
                     }
                     else
                     {
                         json.Add("height_chk_status", "0");
-                        prt_Log("높이 검사 데이터 삽입 실패");
+                        Data_MsgRun("높이 검사 데이터 삽입 실패");
                     }
                     return json.ToString();
                 }
@@ -1170,18 +1179,18 @@ namespace WaferProject.SERVER
                     {
                         db.start_stop_event("wafer", "FINISH", "0");
                         db.wafer_finish();
-                        prt_Log("폴리싱 성공");
+                        Data_MsgRun("폴리싱 성공");
                         return "{ \"pol_status\" : \"1\" }";
                     }
                     else
                     {
-                        prt_Log("폴리싱 실패");
+                        Data_MsgRun("폴리싱 실패");
                         return "{ \"pol_status\" : \"0\" }";
                     }
                 }
                 else
                 {
-                    prt_Log("message error");
+                    Data_MsgRun("message error");
                     return "{\"sd\":\"sd\"}";
                 }
             }

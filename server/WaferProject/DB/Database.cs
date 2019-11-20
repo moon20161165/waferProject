@@ -2746,7 +2746,7 @@ namespace WaferProject.DB
                         {
                             UserInfo ui = new UserInfo();
                             ui.setUser_id(res["userId"].ToString());
-                            ui.setUser_pw(res["userPw"].ToString());
+                            ui.setUser_pw("*****");
                             ui.setUser_name(res["userName"].ToString());
                             ui.setUser_pos(res["userPosition"].ToString());
                             ui.setUser_right(res["userRight"].ToString());
@@ -2852,7 +2852,7 @@ namespace WaferProject.DB
                 try
                 {
                     conn.Open();
-                    string query = "select * from user_table where userId = @userId";
+                    string query = "select userName, userPw from user_table where userId = @userId";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Prepare();
