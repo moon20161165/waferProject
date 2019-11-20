@@ -1,0 +1,17 @@
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.csprojAssemblyReference.cache
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.CodeManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.DataManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.EquipManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.LoginForm.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.IngotCreate.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.Menu.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.MSCodeManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.PwChange.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.RouteManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.Properties.Resources.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.UserManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.UserRegister.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.WaferManagement.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.WaferMonitering.resources
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.csproj.GenerateResource.cache
+C:\Users\User\source\repos\WOMS\WOMS\obj\Release\WOMS.csproj.CoreCompileInputs.cache

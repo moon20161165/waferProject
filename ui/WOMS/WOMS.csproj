@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{472D7555-FB35-4B81-A523-3C3240869B1B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WOMS</RootNamespace>
+    <AssemblyName>WOMS</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.AudioVideoPlayback, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.AudioVideoPlayback.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.Diagnostics, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.Direct3D.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.Direct3DX.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.DirectDraw, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.DirectDraw.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.DirectInput, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.DirectPlay, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.DirectPlay.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.DirectSound, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.DirectSound.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AES256_PW.cs" />
+    <Compile Include="home_index.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="home_index.Designer.cs">
+      <DependentUpon>home_index.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JsonParsing.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs" />
+    <Compile Include="ProgressInfo.cs" />
+    <Compile Include="PwChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PwChange.Designer.cs">
+      <DependentUpon>PwChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TcpSocket.cs" />
+    <Compile Include="CodeManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CodeManagement.Designer.cs">
+      <DependentUpon>CodeManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataManagement.Designer.cs">
+      <DependentUpon>DataManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EquipManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EquipManagement.Designer.cs">
+      <DependentUpon>EquipManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IngotCreate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IngotCreate.Designer.cs">
+      <DependentUpon>IngotCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MsCodeManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MsCodeManagement.Designer.cs">
+      <DependentUpon>MsCodeManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RouteManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RouteManagement.Designer.cs">
+      <DependentUpon>RouteManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaferManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WaferManagement.Designer.cs">
+      <DependentUpon>WaferManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserRegister.Designer.cs">
+      <DependentUpon>UserRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaferMonitering.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaferMonitering.Designer.cs">
+      <DependentUpon>WaferMonitering.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="home_index.resx">
+      <DependentUpon>home_index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PwChange.resx">
+      <DependentUpon>PwChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="CodeManagement.resx">
+      <DependentUpon>CodeManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataManagement.resx">
+      <DependentUpon>DataManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EquipManagement.resx">
+      <DependentUpon>EquipManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngotCreate.resx">
+      <DependentUpon>IngotCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MsCodeManagement.resx">
+      <DependentUpon>MsCodeManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RouteManagement.resx">
+      <DependentUpon>RouteManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaferManagement.resx">
+      <DependentUpon>WaferManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserRegister.resx">
+      <DependentUpon>UserRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaferMonitering.resx">
+      <DependentUpon>WaferMonitering.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\robot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\company.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ingot.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Oper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Route.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\main.PNG" />
+    <Content Include="Resources\main3.PNG" />
+    <Content Include="Resources\mainIcon.ico" />
+    <Content Include="image\waferimg.bmp" />
+    <None Include="Resources\iconfinder_arrow-down_10551205.png" />
+    <None Include="Resources\iconfinder_arrow-down_10551204.png" />
+    <None Include="Resources\iconfinder_arrow-down_10551203.png" />
+    <None Include="Resources\iconfinder_arrow-down_10551202.png" />
+    <None Include="Resources\iconfinder_arrow-down_10551201.png" />
+    <None Include="Resources\iconfinder_arrow-down_1055120.png" />
+    <None Include="Resources\wafer_img2.PNG" />
+    <None Include="Resources\wafer_img1.PNG" />
+    <None Include="Resources\iconfinder_Arrow_doodle_05_3847906.png" />
+    <None Include="Resources\ingot_img1.PNG" />
+    <None Include="Resources\user_img1.PNG" />
+    <None Include="Resources\iconfinder_23_Page_Rank_Badge_1688850.png" />
+    <None Include="Resources\5tspi.png" />
+    <None Include="Resources\iconfinder_business_card_4055380.png" />
+    <None Include="Resources\iconfinder_user_male2_172626.png" />
+    <None Include="Resources\useradd_img.PNG" />
+    <None Include="Resources\mscode_img1.png" />
+    <None Include="Resources\equip_img1.png" />
+    <None Include="Resources\iconfinder_Close_Icon_Dark_1398917.png" />
+    <None Include="Resources\dataManagement_img2.png" />
+    <None Include="Resources\code_img3.PNG" />
+    <None Include="Resources\iconfinder_f-check_256_282474.png" />
+    <None Include="Resources\code_img2.PNG" />
+    <None Include="Resources\cnrkgkrl2.png" />
+    <None Include="Resources\cnrkgkrl.PNG" />
+    <None Include="Resources\codemanagement_img.png" />
+    <None Include="Resources\iconfinder_arrow_outline_3_342792.png" />
+    <None Include="Resources\rhdwjd.PNG" />
+    <None Include="Resources\dataManagement_img.png" />
+    <None Include="Resources\exit4.PNG" />
+    <None Include="Resources\iconfinder_UI_Basic_GLYPH-59_4733365.png" />
+    <None Include="Resources\pw_img2.PNG" />
+    <None Include="Resources\pw_img.PNG" />
+    <None Include="Resources\id_img.PNG" />
+    <None Include="Resources\PW_CHANGE.png" />
+    <None Include="Resources\iconfinder_Home_669946.png" />
+    <None Include="Resources\home1.png" />
+    <None Include="Resources\iconfinder_icons_exit2_1564506.png" />
+    <None Include="Resources\iconfinder_exit_3855614.png" />
+    <None Include="Resources\iconfinder_Maps_Maps_Navigation_Route_Pin_Location-19_3915763.png" />
+    <None Include="Resources\wafer_img.png" />
+    <None Include="Resources\ingot_img.png" />
+    <None Include="Resources\iconfinder_user-group_285648.png" />
+    <None Include="Resources\iconfinder_barcode_40683.png" />
+    <None Include="Resources\iconfinder_Repair_653265.png" />
+    <None Include="Resources\iconfinder_code_322435.png" />
+    <None Include="Resources\iconfinder_management_2799204.png" />
+    <None Include="Resources\iconfinder_Streamline-68_185088.png" />
+    <None Include="Resources\iconfinder_88_1111042.png" />
+    <None Include="Resources\iconfinder_88_111104.png" />
+    <None Include="Resources\down1.png" />
+    <None Include="Resources\waferimg.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MetroModernUI">
+      <Version>1.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
