@@ -21,6 +21,18 @@ namespace WOMS
         public static bool threadFlag = false;
         Thread th;
 
+        public delegate void MsgEvent(DataTable val);
+        private void wafer_MsgRun(DataTable val)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MsgEvent(this.Log), val);
+            }
+        }
+        public void Log(DataTable strval)
+        {
+            this.WaferMonuter.DataSource = strval;
+        }
         private void Run()
         {
             while (threadFlag)
@@ -60,7 +72,7 @@ namespace WOMS
                     moniters[i]["equip_id"], moniters[i]["oper_id"], moniters[i]["equip_rpm"]);
                 }
                 //값들을 테이블에 표시
-                WaferMonuter.DataSource = moniter;
+                wafer_MsgRun(moniter);
                 Thread.Sleep(1000);
             }
         }

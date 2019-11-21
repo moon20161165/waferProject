@@ -20,6 +20,31 @@ namespace WOMS
         private Thread threadIngotStart;
         ProgressInfo pr = new ProgressInfo();
 
+        public delegate void MsgEvent(int val);
+        public delegate void MsgBoolEvent(bool f);
+        private void ingot_MsgRun(int val)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MsgEvent(this.Log), val);
+            }
+        }
+        private void ingot_BoolRun(bool f)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MsgBoolEvent(this.bool_Log), f);
+            }
+        }
+        public void Log(int strval)
+        {
+            this.ingotMoniter.Value = strval;
+            this.ingotNum.Text = ingotMoniter.Value.ToString();
+        }
+        public void bool_Log(bool flag)
+        {
+            this.Add.Enabled = flag;
+        }
         private void Run()
         {
             while (threadFlag)
@@ -37,21 +62,19 @@ namespace WOMS
                 int makes = Convert.ToInt32(recvMsg["ingot_make"]);
                 if (makes == 1)
                 {
-                    Add.Enabled = true;
+                    ingot_BoolRun(true);
                 }
                 else
                 {
-                    Add.Enabled = false;
+                    ingot_BoolRun(false);
                 }
                 if (selectIngot == null) //아무것도 클릭 안했을 때
                 {
-                    ingotMoniter.Value = 0;
-                    ingotNum.Text = ingotMoniter.Value.ToString();
+                    ingot_MsgRun(0);
                 }
                 else if (endTime == null) //현재 진행 중인 잉곳을 클릭했을 때
                 {
-                    ingotMoniter.Value = ProgressInfo.status;
-                    ingotNum.Text = ingotMoniter.Value.ToString();
+                    ingot_MsgRun(ProgressInfo.status);
                     if (ingotMoniter.Value == 100)
                     {
                         MetroFramework.MetroMessageBox.Show(this, "잉곳생성이 완료되었습니다.", "GOOD", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -59,8 +82,7 @@ namespace WOMS
                 }
                 else //완료된 잉곳을 클릭했을 때
                 {
-                    ingotMoniter.Value = pr.getFullStatus();
-                    ingotNum.Text = ingotMoniter.Value.ToString();
+                    ingot_MsgRun(pr.getFullStatus());
                 }
                 Thread.Sleep(1000);
             }
@@ -134,7 +156,7 @@ namespace WOMS
         //테이블의 행 클릭시 행에 있는 값을 받아와서 텍스트박스에 보여줌
         private void Ingot_Grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 endTime = null;
                 selectIngot = Ingot_Grid.Rows[e.RowIndex].Cells[0].Value.ToString();
